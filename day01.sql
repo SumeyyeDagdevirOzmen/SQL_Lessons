@@ -36,7 +36,7 @@ INSERT INTO ogrenciler (isim,soyisim) VALUES ('Erol','Evren');
 --DQL -DATA QUERY LANGUAGE
 --SELECT
 
-select * FROM ogrenciler;
+select * FROM ogrenciler;-- Burdaki * sembolü herşeyi anlamındadır
 
 
 
