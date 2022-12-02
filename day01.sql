@@ -18,10 +18,10 @@ kayit_tarih date
 
 --VAROLAN TABLODAN YENI BIR TABLO OLUSTURMA
 CREATE TABLE ogrenci_notlari 
-AS --Benzer tablodaki basliklarla ve data tipleriyle yeni bir
---tablo olusturmak icin normal tablo olusturuken ki parantezler yerine 
+AS --Benzer tablodaki basliklarla ve data tipleriyle yeni bir tablo olusturmak icin
+-- normal tablo olustururken ki parantezler yerine 
 --AS kullanıp Select komutuyla almak istediğimiz verileri alırız
-SELECT isim,soyisim,not_ort FROM ogrenciler;--AS kullanıp Select komutuyla almak istediğimiz verileri alırız
+SELECT isim,soyisim,not_ort FROM ogrenciler;
 
 --DML -DATA MANUPULATION LANGUAGE
 --INSERT (DATABASE'E VERI EKLEME)
@@ -36,7 +36,7 @@ INSERT INTO ogrenciler (isim,soyisim) VALUES ('Erol','Evren');
 --DQL -DATA QUERY LANGUAGE
 --SELECT
 
-select * FROM ogrenciler;
+select * FROM ogrenciler;-- Burdaki * sembolü herşeyi anlamındadır
 
 
 
