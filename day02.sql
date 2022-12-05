@@ -16,7 +16,7 @@ SELECT isim,not_ort from ogrenciler1;
 
 select * from notlar;
 
---INSERT- TABLO ICINE VERI EKLEME
+--INSERT INTO- TABLO ICINE VERI EKLEME
 
 INSERT INTO notlar VALUES ('Fatma',95.5);
 INSERT INTO notlar VALUES ('Orhan',75.5);
@@ -37,11 +37,12 @@ INSERT INTO talebeler VALUES ('Muserref',100);
 INSERT INTO talebeler VALUES ('Sumeyye',100);
 
 select * from talebeler;
-select isim from talebeler;
+select notlar from talebeler;
 
---CONSTRAINT
+--CONSTRAINT --KISITLAMALAR
 --UNIQUE
 --NOT NULL
+--CHECK:Bir sütuna yerleştirilebilecek değer aralığını sınırlamak için kullanılır .
 
 
 CREATE TABLE ogrenciler2
@@ -74,6 +75,7 @@ kayit_tarih date
 );
 
 --PRIMARY KEY ATAMASI 2.YOL
+--Eger Constraint ismini kendimiz vermek istersek bu yolu kullanabiliriz.
 
 CREATE TABLE ogrenciler4
 (
@@ -189,7 +191,7 @@ CREATE TABLE calisanlar2
 	
 );
 
-INSERT INTO calisanlar2 VALUES('10002', 'Mehmet Yılmaz' ,19000, '2018-04-14');
+INSERT INTO calisanlar2 VALUES('10002', 'Mehmet Yılmaz' ,19000, 2018-04-14);
 
 --DQL DATA QUERY LANG. --WHERE KULLANIMI
 
