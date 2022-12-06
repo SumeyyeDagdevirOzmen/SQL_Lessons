@@ -146,6 +146,11 @@ WHERE isyeri IN (SELECT marka_isim FROM markalar WHERE marka_id>101);
 /*
 --ÖDEV- Ankara’da calisani olan markalarin marka id'lerini ve calisan sayilarini listeleyiniz.
 */
+
+select calisan_sayisi,marka_id,marka_isim from markalar
+where marka_isim in(select isyeri from calisanlar2  where sehir='Ankara');
+
+
 -- AGGREGATE METHOD
 --Calisanlar tablosunda maksimum maası listeleyiniz
 SELECT max(maas) AS maksimum_maas FROM calisanlar2;
@@ -172,9 +177,9 @@ select * from markalar
 --AGGREGATE METHODLARDA SUBQUERY
 -- Her markanin id’sini, ismini ve toplam kaç şehirde 
 -- bulunduğunu listeleyen bir SORGU yaziniz
-SELECT marka_id,marka_isim,
-(SELECT count(sehir) as sehir_sayisi FROM calisanlar2 WHERE marka_isim=isyeri) 
-FROM markalar;
+SELECT marka_id,marka_isim, 
+(SELECT count(sehir) as sehir_sayisi FROM calisanlar2 WHERE marka_isim=isyeri) from markalar 
+;
 --  Her markanin ismini, calisan sayisini ve o markaya ait calisanlarin 
 --  toplam maaşini listeleyiniz
 CREATE view summaas
