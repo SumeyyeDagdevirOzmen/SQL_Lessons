@@ -231,7 +231,102 @@ select * from personel_bilgi;
 
 select sehir,maas as sehir_veya_maas from personel where id='123456789'
 union
-select tel,cocuk_sayisi from personel_bilgi where id='123456789'
+select tel,cocuk_sayisi from personel_bilgi where id='123456789';
+--1) Personel tablosundan Istanbul veya Ankara’da calisanlarin id’lerini yazdir
+select id from personel where sehir in('Istanbul','Ankara');
+
+--2) Personel_bilgi tablosundan 2 veya 3 cocugu olanlarin id lerini yazdirin
+select id from personel_bilgi where cocuk_sayisi in (2,3)
+intersect
+select id from personel where sehir in('Istanbul','Ankara');
+
+--1) Maasi 4800’den az olanlar veya 5000’den cok olanlarin id’lerini
+--listeleyin
+--2) Personel_bilgi tablosundan 2 veya 3 cocugu olanlarin id lerini yazdirin
+select id from personel where maas not between 4800 and 5000
+intersect
+select id from personel_bilgi where cocuk_sayisi in (2,3)
+
+--3) Honda,Ford ve Tofas’ta calisan ortak isimde personel varsa listeleyin
+select isim as ortak_kisiler from personel where sirket='Honda'
+intersect
+select isim from personel where sirket='Ford'
+intersect
+select isim from personel where sirket='Tofas'
+--   EXCEPT
+select isim as ortak_kisiler from personel where sirket='Toyota'
+intersect
+select isim from personel where sirket='Ford'
+except
+select isim from personel where sirket='Tofas'
+
+CREATE TABLE sirketler 
+(
+sirket_id int, 
+sirket_isim varchar(20)
+);
+drop table sirketler;
+
+INSERT INTO sirketler VALUES(100, 'Toyota'); 
+INSERT INTO sirketler VALUES(101, 'Honda'); 
+INSERT INTO sirketler VALUES(102, 'Ford'); 
+INSERT INTO sirketler VALUES(103, 'Hyundai');
+drop table siparisler;
+CREATE TABLE siparisler 
+(
+siparis_id int, 
+sirket_id int, 
+siparis_tarihi date
+);
+
+INSERT INTO siparisler VALUES(11, 101,'17-Apr-2020');
+INSERT INTO siparisler VALUES(22, 102,'18-Apr-2020');
+INSERT INTO siparisler VALUES(33, 103,'19-Apr-2020');
+INSERT INTO siparisler VALUES(44, 104,'20-Apr-2020');
+INSERT INTO siparisler VALUES(55, 105,'21-Apr-2020');
+
+select * from sirketler;
+--SORU) Iki Tabloda sirket_id’si ayni olanlarin sirket_ismi, siparis_id ve
+--siparis_tarihleri ile yeni bir tablo olusturun
+
+select siparisler.siparis_id,siparis_tarihi,sirketler.sirket_id
+from sirketler inner join siparisler on sirketler.sirket_id=siparisler.sirket_id;
+
+
+select siparis_id,siparis_tarihi,sirket_isim
+from sirketler inner join siparisler on sirketler.sirket_id=siparisler.sirket_id;
+
+select siparis_id,siparis_tarihi,sirket_isim
+from sirketler left join siparisler on sirketler.sirket_id=siparisler.sirket_id;
+
+select siparis_id,siparis_tarihi,sirket_isim
+from sirketler right join siparisler on sirketler.sirket_id=siparisler.sirket_id;
+
+select siparis_id,siparis_tarihi,sirket_isim
+from sirketler full join siparisler on sirketler.sirket_id=siparisler.sirket_id;
+
+--           SELF JOIN
+drop table personel;
+CREATE TABLE personel 
+(
+id int,
+isim varchar(20), 
+title varchar(60), 
+yonetici_id int
+);
+INSERT INTO personel VALUES(1, 'Ali Can', 'SDET', 2);
+INSERT INTO personel VALUES(2, 'Veli Cem', 'QA', 3);
+INSERT INTO personel VALUES(3, 'Ayse Gul', 'QA Lead', 4); 
+INSERT INTO personel VALUES(4, 'Fatma Can', 'CEO', 5);
+
+select * from personel;
+--Her personelin yanina yonetici ismini yazdiran bir tablo olusturun
+
+select p1.isim as personel_isim,p2.isim as yonetici_isim
+from personel p1 inner join personel p2
+on p1.yonetici_id=p2.id;
+
+
 
 
 
