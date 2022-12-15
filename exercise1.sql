@@ -325,6 +325,116 @@ select * from personel;
 select p1.isim as personel_isim,p2.isim as yonetici_isim
 from personel p1 inner join personel p2
 on p1.yonetici_id=p2.id;
+--LIKE CONDITION
+drop table kelimeler
+CREATE TABLE kelimeler 
+(
+id int UNIQUE,
+kelime varchar(50) NOT NULL, 
+Harf_sayisi int
+);
+
+
+INSERT INTO kelimeler VALUES (1001, 'hot', 3); 
+INSERT INTO kelimeler VALUES (1002, 'hat', 3); 
+INSERT INTO kelimeler VALUES (1003, 'hit', 3); 
+INSERT INTO kelimeler VALUES (1004, 'hbt', 3); 
+INSERT INTO kelimeler VALUES (1008, 'hct', 3); 
+INSERT INTO kelimeler VALUES (1005, 'adem', 4); 
+INSERT INTO kelimeler VALUES (1006, 'selim', 5); 
+INSERT INTO kelimeler VALUES (1007, 'yusuf', 5);
+
+--SORU : Ilk harfi h,son harfi t olup 
+--2.harfi a ile k arasinda olan 3 harfli kelimelerin tum bilgilerini 
+--yazdiran QUERY yazin
+select * from kelimeler
+where kelime ~'h[a-k]t';
+
+select * from kelimeler
+where kelime ~'^[ha](.*)[mk]$';-- .*==% demektir
+--   LIKE
+select * from kelimeler
+where kelime like 'h%t';
+
+select * from kelimeler
+where kelime ~*'^[^ha](.*)[^f]$';
+
+--SORU : a veya s ile baslayan kelimelerin tum bilgilerini yazdiran QUERY yazin
+select * from kelimeler
+where kelime !~*'(.*a)';
+
+select * from kelimeler
+where kelime !~*'(.*)a(.*)';
+
+select * from kelimeler
+where kelime ~*'(.*)a(.*)';
+
+select * from kelimeler
+where kelime !~*'(.*a)'
+
+--DISTINCT
+drop table musteri_urun
+CREATE TABLE musteri_urun 
+(
+urun_id int, 
+musteri_isim varchar(50),
+urun_isim varchar(50) 
+);
+INSERT INTO musteri_urun VALUES (10, 'Ali', 'Portakal'); 
+INSERT INTO musteri_urun VALUES (10, 'Ali', 'Portakal'); 
+INSERT INTO musteri_urun VALUES (20, 'Veli', 'Elma'); 
+INSERT INTO musteri_urun VALUES (30, 'Ayse', 'Armut'); 
+INSERT INTO musteri_urun VALUES (20, 'Ali', 'Elma'); 
+INSERT INTO musteri_urun VALUES (10, 'Adem', 'Portakal'); 
+INSERT INTO musteri_urun VALUES (40, 'Veli', 'Kaysi'); 
+INSERT INTO musteri_urun VALUES (20, 'Elif', 'Elma');
+
+Tabloda kac farkli meyve vardir ?
+SELECT COUNT(DISTINCT urun_isim) AS urun_cesit_sayisi 
+FROM musteri_urun;
+select * from musteri_urun;
+--3) Sirali tablodan 4. kayittan 7.kayida kadar olan kayitlari listeleyin
+select * from musteri_urun
+order by musteri_urun
+offset 3 limit 4;
+
+select urun_id from musteri_urun
+group by urun_id
+
+select * from musteri_urun
+order by urun_id desc,musteri_isim desc;
+
+--  ALTER
+alter table musteri_urun
+add fiyat int ;
+
+alter table musteri_urun
+add fiyat2 int default 0;
+
+update musteri_urun
+set fiyat=5;
+
+update musteri_urun
+set fiyat=25
+where musteri_isim='Ali' and urun_isim='Elma';
+
+alter table musteri_urun
+drop column fiyat2;
+
+alter table musteri_urun
+rename column fiyat to urun_fiyati;
+
+select * from musteri_urun;
+
+alter table musteri_urun
+alter column urun_id type varchar(5) using(urun_id::varchar)
+
+alter table musteri_urun
+alter column urun_id type int using(urun_id::int)
+
+
+
+
 
 
 
